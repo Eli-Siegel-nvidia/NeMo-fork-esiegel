@@ -19,7 +19,7 @@ import nemo_run as run
 
 from nemo.collections.llm.recipes.nemotronh_56b import pretrain_recipe
 from nemo.collections.nlp.modules.common.tokenizer_utils import get_nmt_tokenizer
-from nemo.lightning.run.plugins import NsysPlugin
+from nemo.lightning.run.plugins import NsysPlugin, IsolationTestPlugin
 
 from ..argument_parser import parse_cli_args
 from ..executors import slurm_executor
@@ -152,6 +152,12 @@ if __name__ == "__main__":
 
     if args.gpu.lower() == 'gb200':
         custom_env_vars |= {"NCCL_NET_GDR_LEVEL": "PHB"}
+
+    if True:
+        plugins.append(
+            IsolationTestPlugin()
+        )
+        exp_name = exp_name + "_isolation"
 
     if args.enable_nsys:
         plugins.append(
