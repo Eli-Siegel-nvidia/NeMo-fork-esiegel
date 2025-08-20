@@ -172,8 +172,10 @@ class IsolationTestPlugin(run.Plugin):
     def generate_noise_initialization_code(self, job_dir):
         "Generate the noise preparation and execution code"
 
-        noise_script_dir = "/home/esiegel/workdir/llm-benchmarking-collection-internal-fork-esiegel/network-isolation/ib_write_bw_bisection"
-        split_nodes_dir = "/home/esiegel/workdir/llm-benchmarking-collection-internal-fork-esiegel/network-isolation"
+        current_file_path = os.path.abspath(__file__)
+        current_directory = os.path.dirname(current_file_path)
+        noise_script_dir = os.path.join(current_directory, "scripts", "ib_write_bw")
+        split_nodes_dir = os.path.join(current_directory, "scripts", "split_nodes")
 
         noise_cmd = f'''
 
